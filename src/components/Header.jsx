@@ -13,13 +13,15 @@ const Header = () => {
     };
 
     useEffect(() => {
-        const userPhone = document.cookie.split('; ').find(row => row.startsWith('userPhone='));
-        const userPassword = document.cookie.split('; ').find(row => row.startsWith('userPassword='));
+        const userPhoneCookie = document.cookie.split('; ').find(row => row.startsWith('userPhone='));
+        const userPasswordCookie = document.cookie.split('; ').find(row => row.startsWith('userPassword='));
 
-        if (userPhone && userPassword) {
+        // Проверяем, есть ли куки
+        if (userPhoneCookie && userPasswordCookie) {
+            const phone = userPhoneCookie.split('=')[1];
+            const password = userPasswordCookie.split('=')[1];
+
             setIsAuthenticated(true); // Пользователь авторизован
-            const phone = userPhone.split('=')[1];
-            const password = userPassword.split('=')[1];
 
             // Запрос имени пользователя
             axios.post('http://89.46.33.136:7100/account/get/name', {
@@ -27,15 +29,19 @@ const Header = () => {
                 password: password
             })
                 .then(response => {
-                    console.log("Ответ от API:", response.data); // Логируем ответ
-                    if (response.data.username) {
-                        setUsername(response.data.username); // Устанавливаем имя, если оно есть
+                    console.log("Ответ от API:", response.data);
+                    if (response.data && response.data.username) {
+                        setUsername(response.data.username);
+                    } else {
+                        console.log("Имя пользователя не найдено в ответе:", response.data);
                     }
                 })
                 .catch(error => {
                     console.error("Ошибка при получении имени пользователя:", error);
                     setUsername("Личный кабинет"); // Возвращаем к стандартному значению в случае ошибки
                 });
+        } else {
+            console.log("Куки не найдены, пользователь не авторизован.");
         }
     }, []);
 
