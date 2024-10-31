@@ -1,4 +1,3 @@
-// Forum.jsx
 import React, { useState } from 'react';
 
 const Forum = () => {

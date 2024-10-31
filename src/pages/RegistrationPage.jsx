@@ -8,20 +8,33 @@ function RegistrationPage() {
         password: "",
     });
 
+    const [error, setError] = useState("");
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+        console.log(formData); // Проверка состояния formData
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Проверка на формат номера телефона
+        if (!formData.id.startsWith("+7")) {
+            setError("Номер телефона должен начинаться с +7");
+            console.log("Ошибка: Номер телефона не начинается с +7"); // Для отладки
+            return;
+        }
+
+        // Очистка сообщения об ошибке, если номер корректен
+        setError("");
+
         try {
-            const response = await axios.post("https://your-api-url.com/register", formData);
+            const response = await axios.post("http://89.46.33.136:7100/auth/registration", formData);
             console.log("Регистрация успешна:", response.data);
-            // Можно добавить логику для перенаправления или уведомления
+            // Логика для успешной регистрации (например, перенаправление пользователя)
         } catch (error) {
             console.error("Ошибка при регистрации:", error);
-            // Можно также добавить логику для отображения ошибки пользователю
+            // Логика для отображения ошибки пользователю
         }
     };
 
@@ -51,8 +64,10 @@ function RegistrationPage() {
                             value={formData.id}
                             onChange={handleChange}
                             required
+                            placeholder="+75555555555"
                             className="w-full px-4 py-2 mt-1 border rounded-md focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                         />
+                        {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
                     </div>
 
                     <div>

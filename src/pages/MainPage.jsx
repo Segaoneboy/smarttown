@@ -1,12 +1,11 @@
 import React from 'react';
+import Header from "../components/Header";
 
 const MainPage = () => {
     return (
-        <div>
-            <button className="">
-                SOS
-            </button>
-        </div>
+        <>
+            <Header/>
+        </>
     );
 };
 

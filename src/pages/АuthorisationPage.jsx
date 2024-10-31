@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 function AuthorisationPage() {
     const [formData, setFormData] = useState({
@@ -9,7 +10,6 @@ function AuthorisationPage() {
 
     const [error, setError] = useState("");
 
-
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -17,6 +17,7 @@ function AuthorisationPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Проверка номера телефона
         if (!formData.id.startsWith("+7")) {
             setError("Номер телефона должен начинаться с +7");
             return;
@@ -24,12 +25,15 @@ function AuthorisationPage() {
         setError("");
 
         try {
-            const response = await axios.post("https://your-api-url.com/login", formData);
+            // GET-запрос с передачей параметров
+            const response = await axios.post("http://89.46.33.136:7100/auth/login", formData)
+
             console.log("Авторизация успешна:", response.data);
-            // Можно добавить логику для перенаправления или уведомления
+            // Логика для перенаправления или уведомления
         } catch (error) {
             console.error("Ошибка при авторизации:", error);
-            // Можно также добавить логику для отображения ошибки пользователю
+            // Логика для отображения ошибки пользователю
+            setError("Ошибка при авторизации. Пожалуйста, проверьте данные.");
         }
     };
 
@@ -71,6 +75,7 @@ function AuthorisationPage() {
                         Войти
                     </button>
                 </form>
+                <Link to="/registration" className=''>Еще не зарегестрированы? Зарегестрируйтесь здесь!</Link>
             </div>
         </div>
     );
