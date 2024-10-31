@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const EventForm = ({ onAddEvent }) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const navigate = useNavigate(); // Используем useNavigate вместо useHistory
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -21,27 +21,30 @@ const EventForm = ({ onAddEvent }) => {
     };
 
     const handleGoToEvents = () => {
-        navigate('/events'); // Используем navigate для перехода на страницу событий
+        navigate('/events');
     };
 
     return (
-        <form onSubmit={handleSubmit} className="mb-6">
+        <form onSubmit={handleSubmit} className="p-4 rounded-lg max-w-md mx-auto">
             <input
                 type="text"
                 placeholder="Название события"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 required
-                className="border p-2 rounded-md w-full mb-2"
+                className="border-b-2 border-gray-300 focus:border-[#2babb6] outline-none p-2 mb-4 w-full transition-all duration-300"
             />
             <textarea
                 placeholder="Описание события"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 required
-                className="border p-2 rounded-md w-full mb-2"
+                className="border-b-2 border-gray-300 focus:border-[#2babb6] outline-none p-2 mb-4 w-full transition-all duration-300"
             />
-            <button type="submit" className="bg-blue-600 text-white p-2 rounded-md w-full">
+            <button
+                type="submit"
+                className="bg-[#2babb6] text-white p-2 rounded-md w-full"
+            >
                 Добавить событие
             </button>
             <button
