@@ -8,7 +8,6 @@ import PrivateAccountPage from "./pages/PrivateAccountPage";
 import useCookieCheck from "./lib/useCookieCheck";
 
 function App() {
-  useCookieCheck()
   return (
     <>
       <Routes>
