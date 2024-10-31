@@ -5,7 +5,7 @@ import AuthorisationPage from "./pages/АuthorisationPage";
 import PosterPage from "./pages/PosterPage";
 import OpinionBoardPage from "./pages/OpinionBoardPage";
 import PrivateAccountPage from "./pages/PrivateAccountPage";
-import useCookieCheck from "./lib/useCookieCheck";
+
 
 function App() {
   return (
