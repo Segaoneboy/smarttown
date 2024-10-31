@@ -17,35 +17,46 @@ const Header = () => {
         const userPasswordCookie = document.cookie.split('; ').find(row => row.startsWith('userPassword='));
 
         // Проверяем, есть ли куки
-        if (userPhoneCookie && userPasswordCookie) {
-            const phone = userPhoneCookie.split('=')[1];
-            const password = userPasswordCookie.split('=')[1];
-
-            setIsAuthenticated(true); // Пользователь авторизован
-
-            // Запрос имени пользователя
-            axios.post('http://89.46.33.136:7100/account/get/name', {
-                id: phone,
-                password: password
-            })
-                .then(response => {
-                    console.log("Ответ от API:", response.data);
-                    // Проверяем наличие 'username' в ответе
-                    if (response.data && response.data.username) {
-                        setUsername(response.data.username);
-                    } else {
-                        console.log("Имя пользователя не найдено в ответе:", response.data);
-                        setUsername("Личный кабинет"); // Возвращаем к стандартному значению
-                    }
-                })
-                .catch(error => {
-                    console.error("Ошибка при получении имени пользователя:", error);
-                    setUsername("Личный кабинет"); // Возвращаем к стандартному значению в случае ошибки
-                });
-        } else {
+        if (!userPhoneCookie || !userPasswordCookie) {
             console.log("Куки не найдены, пользователь не авторизован.");
-            setIsAuthenticated(false); // Обновляем состояние аутентификации
+            setIsAuthenticated(false); // Пользователь не авторизован
+            return; // Выходим из useEffect, если куки отсутствуют
         }
+
+        const phone = userPhoneCookie.split('=')[1];
+        const password = userPasswordCookie.split('=')[1];
+
+        // Проверка значений куки
+        if (!phone || !password) {
+            console.log("Недопустимые значения куки.");
+            setUsername("Личный кабинет");
+            return;
+        }
+
+        console.log("Phone:", phone);
+        console.log("Password:", password);
+
+        setIsAuthenticated(true); // Пользователь авторизован
+
+        // Запрос имени пользователя
+        axios.post('http://89.46.33.136:7100/account/get/name', {
+            id: phone,
+            password: password
+        })
+            .then(response => {
+                console.log("Ответ от API:", response.data);
+                // Проверяем наличие 'username' в ответе
+                if (response.data && response.data.username) {
+                    setUsername(response.data.username || "Личный кабинет");
+                } else {
+                    console.log("Имя пользователя не найдено в ответе:", response.data);
+                    setUsername("Личный кабинет");
+                }
+            })
+            .catch(error => {
+                console.error("Ошибка при получении имени пользователя:", error);
+                setUsername("Личный кабинет"); // Возвращаем к стандартному значению в случае ошибки
+            });
     }, []);
 
     return (

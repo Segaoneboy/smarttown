@@ -33,8 +33,8 @@ function AuthorisationPage() {
             console.log("Авторизация успешна:", response.data);
             // Логика для перенаправления или уведомления
 
-            Cookies.set("userPhone", formData.id, { expires: 7 }); // срок жизни 7 дней
-            Cookies.set("userPassword", formData.password, { expires: 7 });
+            Cookies.set("userPhone", formData.id, { expires: 1 });
+            Cookies.set("userPassword", formData.password, { expires: 1 });
 
             navigate("/account");
 
