@@ -30,10 +30,12 @@ const Header = () => {
             })
                 .then(response => {
                     console.log("Ответ от API:", response.data);
+                    // Проверяем наличие 'username' в ответе
                     if (response.data && response.data.username) {
                         setUsername(response.data.username);
                     } else {
                         console.log("Имя пользователя не найдено в ответе:", response.data);
+                        setUsername("Личный кабинет"); // Возвращаем к стандартному значению
                     }
                 })
                 .catch(error => {
@@ -42,6 +44,7 @@ const Header = () => {
                 });
         } else {
             console.log("Куки не найдены, пользователь не авторизован.");
+            setIsAuthenticated(false); // Обновляем состояние аутентификации
         }
     }, []);
 
