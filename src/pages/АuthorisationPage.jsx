@@ -29,7 +29,7 @@ function AuthorisationPage() {
 
         try {
             // Запрос на авторизацию
-            const response = await axios.post("http://89.46.33.136:7100/auth/login", formData);
+            const response = await axios.post("https://89.46.33.136:7100/auth/login", formData);
             console.log("Авторизация успешна:", response.data);
             // Логика для перенаправления или уведомления
 

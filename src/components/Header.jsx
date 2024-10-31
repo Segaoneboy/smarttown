@@ -39,7 +39,7 @@ const Header = () => {
         setIsAuthenticated(true); // Пользователь авторизован
 
         // Запрос имени пользователя
-        axios.post('http://89.46.33.136:7100/account/get/name', {
+        axios.post('https://89.46.33.136:7100/account/get/name', {
             id: phone,
             password: password
         })

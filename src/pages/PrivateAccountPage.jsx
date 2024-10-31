@@ -59,7 +59,7 @@ const Account = () => {
         }
 
         try {
-            const response = await axios.post('http://89.46.33.136:7100/account/add/ephone', {
+            const response = await axios.post('https://89.46.33.136:7100/account/add/ephone', {
                 id: userPhone,
                 password: userPassword,
                 phones: ephoneArray
