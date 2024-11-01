@@ -33,7 +33,7 @@ function RegistrationPage() {
         console.log("Данные для отправки:", formData);
 
         try {
-            const response = await axios.post("http://89.46.33.136:7100/auth/registration", formData);
+            const response = await axios.post("http://89.46.33.136:7100/auth/registration", formData, {});
             console.log("Регистрация успешна:", response.data);
 
             // После успешной регистрации перенаправляем на главную страницу
