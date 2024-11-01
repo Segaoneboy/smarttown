@@ -8,8 +8,8 @@ const Account = () => {
     const [userName, setUserName] = useState('');
 
     useEffect(() => {
-        const userPhone = Cookies.get("userPhone");
-        const userPassword = Cookies.get("userPassword");
+        const userPhone = Cookies.get("id");
+        const userPassword = Cookies.get("password");
 
         if (!userPhone || !userPassword) {
             setStatusMessage('Ошибка: не удалось получить данные пользователя из куки. Вы не авторизованы.');

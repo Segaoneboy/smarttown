@@ -1,12 +1,28 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from "../assets/images/ST.png";
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        // Check if the cookie exists (assuming it's named 'authToken')
+        const cookieExists = document.cookie.split(';').some((item) => item.trim().startsWith('authToken='));
+        setIsAuthenticated(cookieExists);
+    }, []);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
+    };
+
+    const handleAccountClick = () => {
+        if (isAuthenticated) {
+            navigate("/account");
+        } else {
+            navigate("/authorisation");
+        }
     };
 
     return (
@@ -24,9 +40,9 @@ const Header = () => {
                 </nav>
 
                 <div className="hidden md:block">
-                    <Link to="/account" className="text-stblue hover:underline">
+                    <button onClick={handleAccountClick} className="text-stblue hover:underline">
                         Личный кабинет
-                    </Link>
+                    </button>
                 </div>
 
                 <div className="md:hidden">
@@ -46,9 +62,9 @@ const Header = () => {
                     <Link to="/posterpage" className="text-stblue block p-2">Афиша</Link>
                     <Link to="/opinionboard" className="text-stblue block p-2">Доска мнений</Link>
                     <Link to="/opinionboard" className="text-stblue hover:underline">Уведомление о работах</Link>
-                    <Link to="/authorisation" className="text-stblue block p-2">
+                    <button onClick={handleAccountClick} className="text-stblue block p-2">
                         Личный кабинет
-                    </Link>
+                    </button>
                 </nav>
             )}
         </header>
