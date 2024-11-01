@@ -1,78 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import logo from "../assets/images/ST.png";
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [username, setUsername] = useState("Личный кабинет");
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
 
-    useEffect(() => {
-        const userPhoneCookie = document.cookie.split('; ').find(row => row.startsWith('userPhone='));
-        const userPasswordCookie = document.cookie.split('; ').find(row => row.startsWith('userPassword='));
-
-        // Проверяем, есть ли куки
-        if (!userPhoneCookie || !userPasswordCookie) {
-            console.log("Куки не найдены, пользователь не авторизован.");
-            setIsAuthenticated(false); // Пользователь не авторизован
-            return; // Выходим из useEffect, если куки отсутствуют
-        }
-
-        const phone = userPhoneCookie.split('=')[1];
-        const password = userPasswordCookie.split('=')[1];
-
-        // Проверка значений куки
-        if (!phone || !password) {
-            console.log("Недопустимые значения куки.");
-            setUsername("Личный кабинет");
-            return;
-        }
-
-        console.log("Phone:", phone);
-        console.log("Password:", password);
-
-        setIsAuthenticated(true); // Пользователь авторизован
-
-        // Запрос имени пользователя
-        axios.post('https://89.46.33.136:7100/account/get/name', {
-            id: phone,
-            password: password
-        })
-            .then(response => {
-                console.log("Ответ от API:", response.data);
-                // Проверяем наличие 'username' в ответе
-                if (response.data && response.data.username) {
-                    setUsername(response.data.username || "Личный кабинет");
-                } else {
-                    console.log("Имя пользователя не найдено в ответе:", response.data);
-                    setUsername("Личный кабинет");
-                }
-            })
-            .catch(error => {
-                console.error("Ошибка при получении имени пользователя:", error);
-                setUsername("Личный кабинет"); // Возвращаем к стандартному значению в случае ошибки
-            });
-    }, []);
-
     return (
         <header className="text-white p-4">
             <div className="container mx-auto flex justify-between items-center">
-                <img src={logo} alt="SmartTown Logo" className="w-8 md:w-20" />
+                <Link to="/">
+                    <img src={logo} alt="SmartTown Logo" className="w-8 md:w-20"/>
+                </Link>
 
                 <nav className="hidden md:flex space-x-4">
-                    <Link to="#home" className="text-stblue hover:underline">Справочник услуг</Link>
-                    <Link to="/createpost" className="text-stblue hover:underline">Афиша</Link>
+                    <Link to="https://emichxam.github.io/petromap/index.html" className="text-stblue hover:underline">Справочник услуг</Link>
+                    <Link to="/posterpage" className="text-stblue hover:underline">Афиша</Link>
                     <Link to="/opinionboard" className="text-stblue hover:underline">Доска мнений</Link>
                 </nav>
 
                 <div className="hidden md:block">
-                    <Link to={isAuthenticated ? "/account" : "/authorisation"} className="text-stblue hover:underline">
-                        {username}
+                    <Link to="/account" className="text-stblue hover:underline">
+                        Личный кабинет
                     </Link>
                 </div>
 
@@ -89,11 +41,11 @@ const Header = () => {
 
             {isOpen && (
                 <nav className="md:hidden top-1">
-                    <Link to="#home" className="text-stblue block p-2">Справочник услуг</Link>
-                    <Link to="/createpost" className="text-stblue block p-2">Афиша</Link>
+                    <Link to="https://emichxam.github.io/petromap/index.html" className="text-stblue block p-2">Справочник услуг</Link>
+                    <Link to="/posterpage" className="text-stblue block p-2">Афиша</Link>
                     <Link to="/opinionboard" className="text-stblue block p-2">Доска мнений</Link>
-                    <Link to={isAuthenticated ? "/account" : "/authorisation"} className="text-stblue block p-2">
-                        {username}
+                    <Link to="/authorisation" className="text-stblue block p-2">
+                        Личный кабинет
                     </Link>
                 </nav>
             )}

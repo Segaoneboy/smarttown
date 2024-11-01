@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Header from "../components/Header";
 
 const Forum = () => {
   const [comments, setComments] = useState([]); // Состояние для хранения комментариев
@@ -39,6 +40,8 @@ const Forum = () => {
   );
 
   return (
+      <>
+      <Header/>
       <div className="flex justify-center items-center min-h-screen p-4 bg-gray-100">
         <div className="w-full max-w-3xl bg-white shadow-md rounded-lg p-6">
           <h2 className="text-2xl font-bold text-stblue mb-4">Форум</h2>
@@ -102,6 +105,7 @@ const Forum = () => {
           </div>
         </div>
       </div>
+      </>
   );
 };
 

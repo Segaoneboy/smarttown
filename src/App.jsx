@@ -2,9 +2,12 @@ import RegistrationPage from "./pages/RegistrationPage";
 import {Route, Routes} from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import AuthorisationPage from "./pages/АuthorisationPage";
-import PosterPage from "./pages/PosterPage";
+import PosterCreatePage from "./pages/PosterCreatePage";
 import OpinionBoardPage from "./pages/OpinionBoardPage";
 import PrivateAccountPage from "./pages/PrivateAccountPage";
+import PosterPage from "./pages/PosterPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import EmergencyPage from "./pages/EmergencyPage";
 
 
 function App() {
@@ -14,9 +17,12 @@ function App() {
         <Route path = "/" element={<MainPage/>}/>
         <Route path = "/registration" element={<RegistrationPage/>}/>
           <Route path = "/authorisation" element={<AuthorisationPage/>}/>
-          <Route path = "/createpost" element={<PosterPage/>}/>
+          <Route path = "/createpost" element={<PosterCreatePage/>}/>
           <Route path = "/opinionboard" element={<OpinionBoardPage/>}/>
           <Route path = "/account" element={<PrivateAccountPage/>}/>
+          <Route path = "/posterpage" element={<PosterPage/>}/>
+          <Route path = "/sos" element={<EmergencyPage/>}/>
+          <Route path = {"*"} element={<NotFoundPage/>}/>
       </Routes>
     </>
   );
