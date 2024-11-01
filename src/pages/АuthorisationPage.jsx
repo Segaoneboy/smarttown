@@ -1,46 +1,52 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState } from "react";
+import axios from "axios";
+import { Link, useNavigate  } from "react-router-dom";
+import Cookies from "js-cookie";
 
-function LoginForm() {
-    const [formData, setFormData] = useState({ id: '', password: '' });
-    const [error, setError] = useState('');
+
+function AuthorisationPage() {
+    const [formData, setFormData] = useState({
+        id: "",
+        password: "",
+    });
+
+    const [error, setError] = useState("");
     const navigate = useNavigate();
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Форма отправлена"); // Проверка: виден ли этот вывод
+
+        // Проверка номера телефона
+        if (!formData.id.startsWith("+7")) {
+            setError("Номер телефона должен начинаться с +7");
+            return;
+        }
+        setError("");
 
         try {
-            const response = await axios.post('http://89.46.33.136:7100/auth/login', formData);
-            console.log("Ответ от сервера:", response); // Проверка: вывод ответа от сервера
+            // Запрос на авторизацию
+            const response = await axios.post("http://89.46.33.136:7100/auth/login", formData);
+            console.log("Авторизация успешна:", response.data);
+            // Логика для перенаправления или уведомления
 
-            // Проверяем успешные коды ответа
-            if ([200, 201, 202].includes(response.status)) {
-                // Устанавливаем куки на 10 минут
-                Cookies.set('phone', formData.id, { expires: 1 / 144 }); // 10 минут как дробь дня
-                Cookies.set('password', formData.password, { expires: 1 / 144 });
+            Cookies.set("id", formData.id, { expires: 7 }); // срок жизни 7 дней
+            Cookies.set("password", formData.password, { expires: 7 });
 
-                console.log("Куки установлены"); // Проверка: куки установлены
-                navigate('/account'); // Перенаправление на /account при успешном входе
-            } else {
-                setError('Ошибка при авторизации. Проверьте данные и попробуйте снова.');
-            }
-        } catch (err) {
-            console.error("Ошибка при запросе:", err); // Проверка: вывод ошибки в консоль
-            setError('Неправильный номер телефона или пароль');
+            navigate("/account");
+
+        } catch (error) {
+            console.error("Ошибка при авторизации:", error);
+            setError("Ошибка при авторизации. Пожалуйста, проверьте данные.");
         }
     };
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-            <div className="w-full max-w-md p-8 space-y-4 bg-white border rounded-lg shadow-lg">
+            <div className="w-full max-w-md p-8 space-y-4 bg-white border border-stblue rounded-lg shadow-lg">
                 <h2 className="text-2xl font-semibold text-center text-[#2babb6]">Вход в аккаунт</h2>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -71,18 +77,21 @@ function LoginForm() {
 
                     <button
                         type="submit"
-                        className="w-full px-4 py-2 text-white bg-[#2babb6] rounded-md hover:bg-[#27a49f] focus:outline-none"
+                        className="w-full px-4 py-2 text-white bg-[#2babb6] rounded-md hover:bg-[#279ea0] focus:outline-none"
                     >
                         Войти
                     </button>
                 </form>
 
-                <p className="text-sm text-center text-gray-600">
-                    Нет аккаунта? <Link to="/registration" className="text-[#2babb6]">Зарегистрируйтесь</Link>
+                <p className="mt-4 text-center text-sm">
+                    Еще не зарегистрированы?{" "}
+                    <Link to="/registration" className="text-[#2babb6] underline">
+                        Зарегистрируйтесь здесь!
+                    </Link>
                 </p>
             </div>
         </div>
     );
 }
 
-export default LoginForm;
+export default AuthorisationPage;
