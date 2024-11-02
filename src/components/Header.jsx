@@ -33,14 +33,14 @@ const Header = () => {
                 </Link>
 
                 <nav className="hidden md:flex space-x-4">
-                    <Link to="https://emichxam.github.io/petromap/index.html" className="text-stblue hover:underline">Справочник услуг</Link>
-                    <Link to="/posterpage" className="text-stblue hover:underline">Афиша</Link>
-                    <Link to="/opinionboard" className="text-stblue hover:underline">Доска мнений</Link>
-                    <Link to="/opinionboard" className="text-stblue hover:underline">Уведомление о работах</Link>
+                    <Link to="https://emichxam.github.io/petromap/index.html" className="text-stblue hover:underline font-bold">Справочник услуг</Link>
+                    <Link to="/posterpage" className="text-stblue hover:underline font-bold">Афиша</Link>
+                    <Link to="/opinionboard" className="text-stblue hover:underline font-bold">Доска мнений</Link>
+                    <Link to="http://localhost:7100/works.html" className="text-stblue hover:underline font-bold">Уведомление о работах</Link>
                 </nav>
 
                 <div className="hidden md:block">
-                    <button onClick={handleAccountClick} className="text-stblue hover:underline">
+                    <button onClick={handleAccountClick} className="text-stblue hover:underline font-bold">
                         Личный кабинет
                     </button>
                 </div>
@@ -61,7 +61,7 @@ const Header = () => {
                     <Link to="https://emichxam.github.io/petromap/index.html" className="text-stblue block p-2">Справочник услуг</Link>
                     <Link to="/posterpage" className="text-stblue block p-2">Афиша</Link>
                     <Link to="/opinionboard" className="text-stblue block p-2">Доска мнений</Link>
-                    <Link to="/opinionboard" className="text-stblue hover:underline">Уведомление о работах</Link>
+                    <Link to="http://localhost:7100/works.html" className="text-stblue hover:underline">Уведомление о работах</Link>
                     <button onClick={handleAccountClick} className="text-stblue block p-2">
                         Личный кабинет
                     </button>
