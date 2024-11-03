@@ -77,7 +77,7 @@ function AuthorisationPage() {
 
                     <button
                         type="submit"
-                        className="w-full px-4 py-2 text-white bg-[#2babb6] rounded-md hover:bg-[#279ea0] focus:outline-none"
+                        className="w-full px-4 py-2 text-white bg-stblue rounded-md hover:bg-[#279ea0] focus:outline-none"
                     >
                         Войти
                     </button>

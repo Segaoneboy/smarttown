@@ -7,6 +7,7 @@ import PrivateAccountPage from "./pages/PrivateAccountPage";
 import PosterPage from "./pages/PosterPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import EmergencyPage from "./pages/EmergencyPage";
+import TestPage from "./pages/TestPage";
 
 
 function App() {
@@ -15,12 +16,13 @@ function App() {
       <Routes>
         <Route path = "/" element={<MainPage/>}/>
         <Route path = "/registration" element={<RegistrationPage/>}/>
-          <Route path = "/authorisation" element={<AuthorisationPage/>}/>
-          <Route path = "/opinionboard" element={<OpinionBoardPage/>}/>
-          <Route path = "/account" element={<PrivateAccountPage/>}/>
-          <Route path = "/posterpage" element={<PosterPage/>}/>
-          <Route path = "/sos" element={<EmergencyPage/>}/>
-          <Route path = {"*"} element={<NotFoundPage/>}/>
+        <Route path="/authorisation" element={<AuthorisationPage/>} />
+        <Route path = "/opinionboard" element={<OpinionBoardPage/>}/>
+        <Route path = "/account" element={<PrivateAccountPage/>}/>
+        <Route path = "/posterpage" element={<PosterPage/>}/>
+        <Route path = "/sos" element={<EmergencyPage/>}/>
+        <Route path = "/test" element={<TestPage/>}/>
+        <Route path = {"*"} element={<NotFoundPage/>}/>
       </Routes>
     </>
   );
