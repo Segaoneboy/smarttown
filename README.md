@@ -19,5 +19,5 @@ would solve many problems.
 
 
 
-### <h1 style="color:red; font-weight:bold;">Warning</h1>
-#### This project does not work completely (missing server part). The project is in the archive and is not being developed at the moment.
+## Warning
+### This project does not work completely (missing server part). The project is in the archive and is not being developed at the moment.
